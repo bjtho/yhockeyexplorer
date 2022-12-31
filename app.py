@@ -1,8 +1,6 @@
-from bs4 import BeautifulSoup, SoupStrainer
-import requests
-import html5lib
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 
 st.title("The Yahoo UI we deserve")
 
@@ -104,5 +102,28 @@ if options:
 
 st.dataframe(table_render)
 
+def rating_trend(base, tables):
+    
+    selection = st.selectbox(label="Choose player", options=base['Forwards/Defensemen'])
+    s_idx = base.index[base['Forwards/Defensemen'] == selection]
+    results = []
+    for a in adjectives[1:]:
+        rating = tables[a].loc[s_idx, 'Current'].values[0]
+        results.append(rating)
+
+    df_display = pd.DataFrame.from_dict({'period': reversed(adjectives[1:]), 'ratings':reversed(results)})
+    print(df_display)
+    fig = px.line(df_display,x='period', y='ratings', title=f"Rating Trend for {selection} (lower=better)")
+    st.plotly_chart(fig)
+
+
+
+    
+graph_options = {"Yahoo Rating Trend": rating_trend}
+
+graph_selection = st.selectbox(label="Select a graph", options=graph_options)
+
+if graph_selection:
+    graph_options[graph_selection](base, tables)
 
     
