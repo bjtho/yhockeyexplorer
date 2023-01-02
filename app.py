@@ -164,7 +164,7 @@ layout = [
         dashboard.Item("C", 1, 0, 1, 1, static=True, isDraggable=False, isResizable=False),
         dashboard.Item("RW", 2, 0, 1, 1, static=True, isDraggable=False, isResizable=False),
         dashboard.Item("D", 3, 0, 1, 1, static=True, isDraggable=False, isResizable=False),
-        # dashboard.Item(i="0", x=0, y=2, w=1, h=1)
+
     ]
 
 for index, row in base.iterrows():
@@ -173,7 +173,7 @@ for index, row in base.iterrows():
 
     item = dashboard.Item(i=str(index), x=layout_pos[row["Player Pos"][0]], y=ctr, w=1, h=1, isDraggable=True, isResizable=True) #
     layout.append(item)
-print(layout)
+
 
 paper_sx = {"textAlign":"center", "line-height": "40px", 'height': "40px" }
 with elements("dashboard"):
@@ -188,17 +188,9 @@ with elements("dashboard"):
                 mui.Paper(row['Forwards/Defensemen'], key=str(index), elevation=0, sx=paper_sx)
 
 
-# st.markdown("[![Foo](http://www.google.com.au/images/nav_logo7.png)](http://google.com.au/)") 
 
-# txt = "View Project on GitHub"
-# c1, _ , c2 = st.columns([1, 1, 10])
-# with c1:
-#     st.image("static/github-mark.png", use_column_width=True)
-# with c2:
-#     st.write(txt)
 with elements("new_element"):
     mui.Button("View on GitHub", variant="outlined", href="https://github.com/bjtho/yhockeyexplorer",target="_blank", startIcon=mui.icon.GitHub(color='inherit'))
-        # mui.icon.GitHub(color='inherit')
-        # mui.Typography("View on GitHub")
+
     
         
