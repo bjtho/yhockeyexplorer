@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 from streamlit_elements import elements, dashboard, mui, html
+import re
 st.set_page_config(layout="wide")
 st.title("The Yahoo UI we deserve")
 
@@ -51,12 +52,10 @@ def get_table(league, team, date, stat_1, stat_2, adjective, table_index=0):
     current_table = current_table[current_table["Forwards/Defensemen"] != "Starting Lineup Totals"]
     return current_table[permanent], current_table[local_variable]
 
-import re
+
 def extract_positions(row):
     search = re.search("(?<=- )(\S*)", row)
-    print(search.groups())
     result = search.group(0)
-    
     return result.split(",")
 
 def clean_base(base):
