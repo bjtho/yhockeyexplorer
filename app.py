@@ -105,6 +105,12 @@ if not stats:
 if not options:
     options = time_series_filter_columns
     
+def position_render(r, *positions):
+    for item in r:
+        if item in positions:
+            return True
+    return False 
+    
 
 table_render = base
 
@@ -116,7 +122,8 @@ if options:
         table_render = table_render[table_render['Forwards/Defensemen'].isin(players)]
 
     if positions:
-        table_render = table_render[table_render['Player Pos'].items().isin(positions)]
+        table_render = table_render[table_render['Player Pos'].apply(position_render, args=positions)]
+
 
 st.dataframe(table_render)
 
